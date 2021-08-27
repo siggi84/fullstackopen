@@ -1,0 +1,7 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/spa/new_note_spa
+server-->browser: Status: 201 Created
+
+note over browser:
+browser starts executing js-code
+that adds the new note to the list
+end note
