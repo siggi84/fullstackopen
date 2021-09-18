@@ -1,16 +1,28 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const url = process.env.MONGODB_URI
 
 mongoose.connect(url)
-  .then(result => console.log('Connected to MongoDB'))
+  .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.log('error connecting to MongoDB:', error.message))
 
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-}, { collection: 'persons'})
+  name: {
+    type: String,
+    minLength: 3,
+    required: true,
+    unique: true
+  },
+  number: {
+    type: String,
+    minLength: 7,
+    required: true
+  }
+}, { collection: 'persons' })
+
+personSchema.plugin(uniqueValidator)
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
